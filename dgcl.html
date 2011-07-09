@@ -1,0 +1,32 @@
+<html>
+
+<head>
+  <title>DGCL</title>
+</head>
+
+<body>
+  <script src='data.js'></script>
+  <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js'></script>
+  <script>
+    dgcl = data['titles'][0]['chapters'][0];
+    
+    $('<h1>' + dgcl['title'] + '</h1>').appendTo('body');
+    
+    var subchapters = dgcl['subchapters'];
+    for (var i = 0; i < subchapters.length; i++) {
+      var subchapter = subchapters[i];
+      
+      $('<h2>' + subchapter['number'] + '. ' + subchapter['title'] + '</h2>').appendTo('body');
+      
+      var sections = subchapter['sections'];
+      for (var j = 0; j < sections.length; j++) {
+        var section = sections[j];
+        
+        $('<h3>' + section['number'] + '. ' + section['title'] + '</h3>').appendTo('body');
+        $('<p>' + section['content'] + '</p>').appendTo('body');
+      }
+    }
+  </script>
+</body>
+
+</html>
