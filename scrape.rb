@@ -78,7 +78,7 @@ def sections(chapter_number, subchapter)
       paragraphs.push cur if cur['class'] == 'section-para'
       cur = cur.next
     end
-    content = paragraphs.map { |para| para.content }.join('\n')
+    content = paragraphs.map { |para| para.content }.join("\n")
     
     { :number => number, :title => m[2], :ref_url => url, :content => content }
   end
