@@ -4,6 +4,9 @@ require 'uri'
 require 'json'
 
 
+DATA_FILENAME = 'data.js'
+
+
 $last_download_at = nil
 MIN_DELAY_SECS = 2.0
 def download(url, filename)
@@ -106,4 +109,4 @@ titles.each do |title|
 end
 
 
-puts data.to_json
+File.open(DATA_FILENAME, 'w') { |f| f << "var data = #{data.to_json};" }
