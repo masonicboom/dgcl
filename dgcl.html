@@ -23,7 +23,10 @@
         var section = sections[j];
         
         $('<h3>' + section['number'] + '. ' + section['title'] + '</h3>').appendTo('body');
-        $('<p>' + section['content'] + '</p>').appendTo('body');
+        
+        var content = section['content'];
+        var content = content.replace(/\n/g, '<br/>');
+        $('<p>' + content + '</p>').appendTo('body');
       }
     }
   </script>
