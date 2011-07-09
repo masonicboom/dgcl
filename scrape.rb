@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 require 'uri'
+require 'json'
 
 
 $last_download_at = nil
@@ -81,12 +82,28 @@ def sections(chapter_number, subchapter)
 end
 
 
+data = { :titles => [] }
 titles.each do |title|
+  t = title.merge(:chapters => [])
+  
   chapters(title).each do |chapter|
+    c = chapter.merge(:subchapters => [])
+    
     subchapters(chapter).each do |subchapter|
+      sc = subchapter.merge(:sections => [])
+      
       sections(chapter[:number], subchapter).each do |section|
-        p section
+        sc[:sections].push section
       end
+      
+      c[:subchapters].push sc
     end
+    
+    t[:chapters].push c
   end
+  
+  data[:titles].push t
 end
+
+
+puts data.to_json
