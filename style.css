@@ -45,5 +45,8 @@ form#search {
 }
 .section:hover>.content { border-color: #F7E2C1; }
 
+.section>.content>.title {
+  font-weight: bold;
+}
+
 #hits h2 { margin-left: 10%; }
-#hits h3 { margin-left: 10%; }

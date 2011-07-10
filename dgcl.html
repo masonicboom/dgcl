@@ -23,6 +23,12 @@
     }
     
     function buildSectionElement(subchapter, section, query) {
+      var content = section['content'];
+      content = content.replace(/\n/g, '<br/>');
+      var index = content.toLowerCase().indexOf(query);
+      if (index === -1) return null;
+
+        
       var section_el = $('<div class="section"></div>');
       
       var meta_tab_el = $('<div class="meta-tab"></div>');
@@ -32,32 +38,26 @@
       $('<div><a href="' + section['ref_url'] + '">orig</a></div>').appendTo(meta_tab_el);
       
       var content_el = $('<div class="content"></div>');
+      $('<div class="title">' + section['title'] + '</div>').appendTo(content_el);
       content_el.appendTo(section_el);
       
       $('<div class="clear"></div>').appendTo(section_el);
       
-      var content = section['content'];
-      content = content.replace(/\n/g, '<br/>');
-      
-      var index = content.toLowerCase().indexOf(query);
-      if (index != -1) {
-        var lo = index - 120;
-        var hi = index + 120;
-        
-        var before = content.substring(0, lo);
-        var snippet = content.substring(lo, hi);
-        var after = content.substring(hi);
-                
-        var before_html = '<span class="non-snippet">' + highlight(query, before) + '</span>';
-        var after_html = '<span class="non-snippet">' + highlight(query, after) + '</span>';
-        var snippet_html = '<span class="snippet">' + highlight(query, snippet) + '</span>'
-        content_el.html(before_html + snippet_html + after_html);
-                
-        section_el.click(function(event) {
-          var el = $(event.currentTarget);
-          el.find('.non-snippet').fadeToggle('slow');
-        }); 
-      }
+      var lo = index - 120;
+      var hi = index + 120;
+      var before = content.substring(0, lo);
+      var snippet = content.substring(lo, hi);
+      var after = content.substring(hi);
+              
+      var before_html = '<span class="non-snippet">' + highlight(query, before) + '</span>';
+      var after_html = '<span class="non-snippet">' + highlight(query, after) + '</span>';
+      var snippet_html = '<span class="snippet">' + highlight(query, snippet) + '</span>'
+      $('<div>' + before_html + snippet_html + after_html + '</div>').appendTo(content_el);
+              
+      section_el.click(function(event) {
+        var el = $(event.currentTarget);
+        el.find('.non-snippet').fadeToggle('slow');
+      }); 
       
       return section_el;
     }
@@ -81,10 +81,6 @@
         var sections = subchapter['sections'];
         for (var j = 0; j < sections.length; j++) {
           var section = sections[j];
-          if (section['title'].toLowerCase().indexOf(query) != -1) {
-            $('<h3>' + section['number'] + '. ' + highlight(query, section['title']) + '</h3>').appendTo('#hits');
-          }
-          
           var content = section['content'];
           content = content.replace(/\n/g, '<br/>');
           var index = content.toLowerCase().indexOf(query);
