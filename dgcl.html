@@ -67,7 +67,14 @@
           if (index != -1) {
             var snippet = content.substring(index - 50, index + 50);
             snippet = highlight(query, snippet);
-            $('<p>' + snippet + '...' + '</p>').appendTo('#hits');
+            var content_hit = $('<p>' + snippet + '...' + '</p>');
+            content_hit.appendTo('#hits');
+            content_hit.data('full-content', highlight(query, content));
+            content_hit.click(function(event) {
+              var hit = $(event.target);
+              hit.html(hit.data('full-content'));
+            });
+            
           }
         }
         
