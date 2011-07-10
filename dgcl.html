@@ -20,6 +20,8 @@
     .match {
       background-color: yellow;
     }
+    
+    #hits>div>.non-snippet { display: none; }
   </style>
 </head>
 
@@ -65,14 +67,24 @@
           content = content.replace(/\n/g, '<br/>');
           var index = content.toLowerCase().indexOf(query);
           if (index != -1) {
-            var snippet = content.substring(index - 50, index + 50);
+            var lo = index - 50;
+            var hi = index + 50;
+            
+            var before = content.substring(0, lo);
+            var snippet = content.substring(lo, hi);
+            var after = content.substring(hi);
+            
             snippet = highlight(query, snippet);
-            var content_hit = $('<p>' + snippet + '...' + '</p>');
+            
+            var before_html = '<span class="non-snippet">' + before + '</span>';
+            var after_html = '<span class="non-snippet">' + after + '</span>';
+            var snippet_html = '<span class="snippet"' + snippet + '</span>'
+            var content_hit = $('<div>' + before_html + snippet + after_html + '</div>');
+            
             content_hit.appendTo('#hits');
-            content_hit.data('full-content', highlight(query, content));
             content_hit.click(function(event) {
               var hit = $(event.target);
-              hit.html(hit.data('full-content'));
+              hit.find('.non-snippet').fadeToggle('slow');
             });
             
           }
