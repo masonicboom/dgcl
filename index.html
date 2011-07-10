@@ -68,7 +68,7 @@
       var before_html = '<span class="non-snippet">' + highlight(query, before) + '</span>';
       var after_html = '<span class="non-snippet">' + highlight(query, after) + '</span>';
       var snippet_html = '<span class="snippet">' + highlight(query, snippet) + '</span>'
-      $('<div>' + before_html + snippet_html + after_html + '</div>').appendTo(content_el);
+      $('<p>' + before_html + snippet_html + after_html + '</p>').appendTo(content_el);
               
       section_el.click(function(event) {
         var el = $(event.currentTarget);
