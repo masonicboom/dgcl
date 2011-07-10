@@ -36,7 +36,8 @@
       width: 7%;
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px;
-      padding: 1% 0 1% 2%;
+      padding: 1% 2% 1% 0;
+      text-align: right;
     }
     
     .section>.content {
@@ -68,12 +69,12 @@
       return string.replace(query, '<span class="match">' + query + '</span>');
     }
     
-    function buildSectionElement(section, query) {
+    function buildSectionElement(subchapter, section, query) {
       var section_el = $('<div class="section"></div>');
       
       var meta_tab_el = $('<div class="meta-tab"></div>');
       meta_tab_el.appendTo(section_el);
-      $('<div>' + section['number'] + '</div>').appendTo(meta_tab_el);
+      $('<div>' + subchapter['number'] + '. ' + section['number'] + '</div>').appendTo(meta_tab_el);
       $('<div><a href="' + section['ref_url'] + '">orig</a></div>').appendTo(meta_tab_el);
       
       var content_el = $('<div class="content"></div>');
@@ -141,7 +142,7 @@
           content = content.replace(/\n/g, '<br/>');
           var index = content.toLowerCase().indexOf(query);
           if (index != -1) {
-            buildSectionElement(section, query).appendTo('#hits');
+            buildSectionElement(subchapter, section, query).appendTo('#hits');
           }
         }
         
