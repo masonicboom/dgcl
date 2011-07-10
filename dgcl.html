@@ -72,10 +72,10 @@
       for (var i = 0; i < subchapters.length; i++) {
         var subchapter = subchapters[i];
         
-        if (subchapter['title'].toLowerCase().indexOf(query) != -1) {
+        var subchapter_title_shown = false;
+        function showSubchapterTitle(subchapter) {
           $('<h2>' + subchapter['number'] + '. ' + highlight(query, subchapter['title']) + '</h2>').appendTo('#hits');
         }
-        
         
         var sections = subchapter['sections'];
         for (var j = 0; j < sections.length; j++) {
@@ -84,6 +84,11 @@
           content = content.replace(/\n/g, '<br/>');
           var index = content.toLowerCase().indexOf(query);
           if (index != -1) {
+            if (subchapter_title_shown === false) {
+              showSubchapterTitle(subchapter);
+              subchapter_title_shown = true;
+            }
+            
             buildSectionElement(subchapter, section, query).appendTo('#hits');
           }
         }
