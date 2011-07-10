@@ -1,10 +1,18 @@
-form#search {
+#header {
   position:fixed;
   top: 2ex;
   background-color: #6BB6FF;
   padding: 6px;
   border-radius: 8px;
   margin-left: 2em;
+}
+#header>span {
+  float: left;
+  margin-right: 2ex;
+}
+#header #logo {
+  font-weight: bold;
+  font-family: verdana;
 }
 
 #hits {
