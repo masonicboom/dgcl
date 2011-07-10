@@ -8,6 +8,7 @@ form#search {
 }
 
 #hits {
+  padding-top: 1ex;
   margin-top: 9ex;
   margin-left: 2em;
   width: 80%;
@@ -28,14 +29,15 @@ form#search {
 .section>.meta-tab {
   background-color: #F7F6F4;
   float: left;
-  width: 7%;
+  width: 8%;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  padding: 1% 2% 1% 0;
+  border: 3px solid #F7F6F4;
+  padding: 1% 1% 1% 0;
   text-align: right;
 }
-.section:hover>.meta-tab { background-color: #F7E2C1; }
+.section:hover>.meta-tab { background-color: #F7E2C1; border-color: #F7E2C1; }
 
 .section>.content {
   border-top: 3px solid #F7F6F4;
@@ -45,8 +47,8 @@ form#search {
 }
 .section:hover>.content { border-color: #F7E2C1; }
 
-.section>.content>.title {
+.section .title {
   font-weight: bold;
 }
 
-#hits h2 { margin-left: 10%; }
+#hits h2 { margin-left: 10%; margin-top: 3ex; }
