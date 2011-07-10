@@ -2,3 +2,4 @@ chapter*.html
 subchapter*.html
 style.css
 .sass-cache
+data.js
