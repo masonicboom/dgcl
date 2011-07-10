@@ -2,33 +2,75 @@
 
 <head>
   <title>DGCL</title>
+  <script src='data.js'></script>
+  <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js'></script>
+  <style>
+    form#search {
+      position:fixed;
+      top: 2ex;
+      background-color: green;
+      padding: 6px;
+      border-radius: 8px;
+    }
+    
+    #hits {
+      margin-top: 9ex;
+    }
+  </style>
 </head>
 
 <body>
-  <script src='data.js'></script>
-  <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js'></script>
+  <form id='search' action='javascript:return false;'>
+    <input id='search' size=50></input>
+    <input type='submit' value='search'></input>
+  </form>
+  
+  <div id='hits'></div>
+  
   <script>
-    dgcl = data['titles'][0]['chapters'][0];
+    var dgcl = data['titles'][0]['chapters'][0];
     
-    $('<h1>' + dgcl['title'] + '</h1>').appendTo('body');
-    
-    var subchapters = dgcl['subchapters'];
-    for (var i = 0; i < subchapters.length; i++) {
-      var subchapter = subchapters[i];
+    function search(query) {
+      $('#hits').empty();
       
-      $('<h2>' + subchapter['number'] + '. ' + subchapter['title'] + '</h2>').appendTo('body');
+      $("html, body").animate({ scrollTop: 0 }, "slow");
       
-      var sections = subchapter['sections'];
-      for (var j = 0; j < sections.length; j++) {
-        var section = sections[j];
+      var query = query.toLowerCase();
+      
+      var subchapters = dgcl['subchapters'];
+      for (var i = 0; i < subchapters.length; i++) {
+        var subchapter = subchapters[i];
         
-        $('<h3>' + section['number'] + '. ' + section['title'] + '</h3>').appendTo('body');
+        if (subchapter['title'].toLowerCase().indexOf(query) != -1) {
+          $('<h2>' + subchapter['number'] + '. ' + subchapter['title'] + '</h2>').appendTo('#hits');
+        }
         
-        var content = section['content'];
-        var content = content.replace(/\n/g, '<br/>');
-        $('<p>' + content + '</p>').appendTo('body');
+        
+        var sections = subchapter['sections'];
+        for (var j = 0; j < sections.length; j++) {
+          var section = sections[j];
+          if (section['title'].toLowerCase().indexOf(query) != -1) {
+            $('<h3>' + section['number'] + '. ' + section['title'] + '</h3>').appendTo('#hits');
+          }
+          
+          var content = section['content'];
+          if (content.toLowerCase().indexOf(query) != -1) {
+            var content = content.replace(/\n/g, '<br/>');
+            $('<p>' + content + '</p>').appendTo('#hits');
+          }
+        }
+        
       }
     }
+    
+    $('form#search').submit(function() {
+      var query = $('form#search>input')[0].value;
+      search(query);
+      return false; // This prevents page reload.
+    });
+    
+    search('');
+    $('input#search').focus();
   </script>
 </body>
 
