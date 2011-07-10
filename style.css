@@ -20,12 +20,13 @@ form#search {
 #hits .non-snippet { display: none; }
 
 .section {
-  margin-top: 2ex;
+  margin-top: 4ex;
   cursor: row-resize;
 }
+.section>.clear { clear: both; }
     
 .section>.meta-tab {
-  background-color: #FFFAE9;
+  background-color: #F7F6F4;
   float: left;
   width: 7%;
   border-top-left-radius: 10px;
@@ -33,15 +34,15 @@ form#search {
   padding: 1% 2% 1% 0;
   text-align: right;
 }
+.section:hover>.meta-tab { background-color: #F7E2C1; }
 
 .section>.content {
-  background-color: #FFFAE9;
+  border-top: 3px solid #F7F6F4;
   width: 85%;
   float: left;
   padding: 1%;
 }
-
-.section>.clear { clear: both; }
+.section:hover>.content { border-color: #F7E2C1; }
 
 #hits h2 { margin-left: 10%; }
 #hits h3 { margin-left: 10%; }
