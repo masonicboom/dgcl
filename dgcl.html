@@ -47,12 +47,10 @@
         var before = content.substring(0, lo);
         var snippet = content.substring(lo, hi);
         var after = content.substring(hi);
-        
-        snippet = highlight(query, snippet);
-        
-        var before_html = '<span class="non-snippet">' + before + '</span>';
-        var after_html = '<span class="non-snippet">' + after + '</span>';
-        var snippet_html = '<span class="snippet">' + snippet + '</span>'
+                
+        var before_html = '<span class="non-snippet">' + highlight(query, before) + '</span>';
+        var after_html = '<span class="non-snippet">' + highlight(query, after) + '</span>';
+        var snippet_html = '<span class="snippet">' + highlight(query, snippet) + '</span>'
         content_el.html(before_html + snippet_html + after_html);
                 
         section_el.click(function(event) {
