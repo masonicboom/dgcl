@@ -1,0 +1,124 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  font-size: 100%; }
+
+h1 {
+  font-size: 2.25em;
+  /* 16x2.25=36 */ }
+
+h2 {
+  font-size: 1.5em;
+  /* 16x1.5=24 */ }
+
+h3 {
+  font-size: 1.125em;
+  /* 16x1.125=18 */ }
+
+h4 {
+  font-size: 0.875em;
+  /* 16x0.875=14 */ }
+
+p {
+  font-size: 0.75em;
+  /* 16x0.75=12 */ }
+
+#header {
+  position: fixed;
+  top: 2ex;
+  background-color: #6bb6ff;
+  padding: 6px;
+  border-radius: 8px;
+  margin-left: 2em; }
+  #header h1 {
+    float: left;
+    margin-right: 2ex; }
+  #header form {
+    float: left; }
+
+#hits {
+  padding-top: 1ex;
+  margin-top: 9ex;
+  margin-left: 2em;
+  width: 80%; }
+  #hits .non-snippet {
+    display: none; }
+  #hits h2 {
+    margin-left: 10%;
+    margin-top: 3ex; }
+
+.match {
+  background-color: yellow; }
+
+.section {
+  margin-top: 4ex;
+  cursor: row-resize; }
+  .section .clear {
+    clear: both; }
+  .section .title {
+    font-weight: bold; }
+  .section .meta-tab {
+    background-color: #f7f6f4;
+    float: left;
+    width: 8%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 3px solid #f7f6f4;
+    padding: 1% 1% 1% 0;
+    text-align: right; }
+  .section:hover > .meta-tab {
+    background-color: #f7e2c1;
+    border-color: #f7e2c1; }
+  .section .content {
+    border-top: 3px solid #f7f6f4;
+    width: 85%;
+    float: left;
+    padding: 1%; }
+  .section:hover > .content {
+    border-color: #f7e2c1; }
