@@ -2,6 +2,7 @@
 
 <head>
   <title>DGCL</title>
+  <link href='http://fonts.googleapis.com/css?family=Forum&subset=latin&v2' rel='stylesheet' type='text/css'>
   <script src='data.js'></script>
   <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js'></script>
   <link rel="stylesheet" type="text/css" href="style.css" />
@@ -23,13 +24,11 @@
 
 <body>
   <div id='header'>
-    <span id='logo'>DGCL</span>
-    <span>
-      <form id='search' action='javascript:return false;'>
-        <input id='query' size=50></input>
-        <input type='submit' value='search'></input>
-      </form>
-    </span>
+    <h1>DGCL</h1>
+    <form id='search' action='javascript:return false;'>
+      <input id='query' size=50></input>
+      <input type='submit' value='search'></input>
+    </form>
   </div>
   
   <div id='hits'></div>
@@ -52,11 +51,11 @@
       
       var meta_tab_el = $('<div class="meta-tab"></div>');
       meta_tab_el.appendTo(section_el);
-      $('<div class="title">' + subchapter['number'] + '. ' + section['number'] + '</div>').appendTo(meta_tab_el);
-      $('<div><a href="' + section['ref_url'] + '">source</a></div>').appendTo(meta_tab_el);
+      $('<h3>' + subchapter['number'] + '. ' + section['number'] + '</h3>').appendTo(meta_tab_el);
+      $('<a href="' + section['ref_url'] + '">source</a>').appendTo(meta_tab_el);
       
       var content_el = $('<div class="content"></div>');
-      $('<div class="title">' + highlight(query, section['title']) + '</div>').appendTo(content_el);
+      $('<h3>' + highlight(query, section['title']) + '</h3>').appendTo(content_el);
       content_el.appendTo(section_el);
       
       $('<div class="clear"></div>').appendTo(section_el);
@@ -70,7 +69,7 @@
       var before_html = '<span class="non-snippet">' + highlight(query, before) + '</span>';
       var after_html = '<span class="non-snippet">' + highlight(query, after) + '</span>';
       var snippet_html = '<span class="snippet">' + highlight(query, snippet) + '</span>'
-      $('<div>' + before_html + snippet_html + after_html + '</div>').appendTo(content_el);
+      $('<p>' + before_html + snippet_html + after_html + '</p>').appendTo(content_el);
               
       section_el.click(function(event) {
         var el = $(event.currentTarget);

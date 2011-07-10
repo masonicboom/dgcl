@@ -49,76 +49,68 @@ body {
   font-size: 100%; }
 
 h1 {
-  font-size: 2.25em;
-  /* 16x2.25=36 */ }
+  font-size: 2.25em; }
 
 h2 {
-  font-size: 1.5em;
-  /* 16x1.5=24 */ }
+  font-size: 1.75em; }
 
 h3 {
-  font-size: 1.125em;
-  /* 16x1.125=18 */ }
-
-h4 {
-  font-size: 0.875em;
-  /* 16x0.875=14 */ }
+  font-size: 1.3em; }
 
 p {
-  font-size: 0.75em;
-  /* 16x0.75=12 */ }
+  font-size: 1.0em;
+  line-height: 1.45; }
+
+a {
+  color: #403f3e; }
+  a:hover {
+    background-color: yellow; }
+
+body {
+  font-family: 'Forum', serif;
+  padding-left: 4em;
+  color: #403f3e; }
 
 #header {
   position: fixed;
   top: 2ex;
-  background-color: #6bb6ff;
+  background-color: #f7f6f2;
   padding: 6px;
-  border-radius: 8px;
-  margin-left: 2em; }
+  border-radius: 8px; }
   #header h1 {
     float: left;
     margin-right: 2ex; }
   #header form {
     float: left; }
 
-#hits {
-  padding-top: 1ex;
-  margin-top: 9ex;
-  margin-left: 2em;
-  width: 80%; }
-  #hits .non-snippet {
-    display: none; }
-  #hits h2 {
-    margin-left: 10%;
-    margin-top: 3ex; }
+#hits .non-snippet {
+  display: none; }
+#hits h2 {
+  margin-top: 10ex;
+  margin-bottom: 4ex;
+  margin-left: 10em; }
 
 .match {
   background-color: yellow; }
 
 .section {
-  margin-top: 4ex;
+  margin-bottom: 5ex;
   cursor: row-resize; }
   .section .clear {
     clear: both; }
-  .section .title {
-    font-weight: bold; }
+  .section h3 {
+    margin-bottom: 1ex; }
   .section .meta-tab {
-    background-color: #f7f6f4;
     float: left;
-    width: 8%;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border: 3px solid #f7f6f4;
-    padding: 1% 1% 1% 0;
-    text-align: right; }
-  .section:hover > .meta-tab {
-    background-color: #f7e2c1;
-    border-color: #f7e2c1; }
+    width: 5em;
+    text-align: right;
+    padding: 1ex; }
   .section .content {
-    border-top: 3px solid #f7f6f4;
-    width: 85%;
+    border-left: 3px solid #f7f6f2;
+    width: 35em;
     float: left;
-    padding: 1%; }
+    padding: 1ex 0 0 1ex; }
   .section:hover > .content {
-    border-color: #f7e2c1; }
+    border-color: #edece8; }
+  .section:hover {
+    color: black; }
