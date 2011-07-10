@@ -23,18 +23,19 @@
   </script>
 </head>
 
-<body>
+<body>  
+  <p id='intro'>
+    DGCL.info is a search engine for Delaware General Corporation Law. Use the search box below to find sections containing your query. Click sections to expand and contract them.
+  </p>
+  
   <div id='header'>
     <h1>DGCL</h1>
     <form id='search' action='javascript:return false;'>
       <input id='query' size=50></input>
       <input type='submit' value='search'></input>
     </form>
+    <div class='clear'></div>
   </div>
-  
-  <p id='intro'>
-    DGCL.info is a search engine for Delaware General Corporation Law. Use the search box to find sections containing your query. Click sections to expand and contract them.
-  </p>
   
   <div id='hits'></div>
   
@@ -127,6 +128,15 @@
     
     search('');
     $('form#search>input')[0].focus();
+    
+    var header_original_offset = $("#header").offset().top;
+    $(window).scroll(function(event) {
+      if ($(window).scrollTop() > header_original_offset) {
+        $("#header").addClass('scrolled');
+      } else {
+        $("#header").removeClass('scrolled');
+      }
+    });
   </script>
 </body>
 

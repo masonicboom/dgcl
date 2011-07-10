@@ -26,28 +26,40 @@ body {
   font-family: 'Forum', serif;
   padding-left: 4em;
   color: $inactive-fg;
+  margin-top: 3ex;
 }
 
+.clear { clear: both; }
+
 #header {
-  position:fixed;
-  top: 2ex;
   background-color: $inactive-muted-bg;
-  padding: 6px;
+  padding: 2ex 3ex 2ex 3ex;
   border-radius: 8px;
+  width: 37em;
   
   h1 {
     float: left;
-    margin-right: 2ex;
+    margin-right: 1em;
   }
   
   form { float: left; }
+  
+  input {
+    padding: 0.3em;
+    font-size: 1em;
+  }
+  
+  &.scrolled {
+    position:fixed;
+    top: -1ex;
+  }
 }
 
 #intro {
-  margin-top: 14ex;
   font-size: 1.3em;
   color: $active-fg;
   max-width: $column-width;
+  margin-bottom: 3ex;
 }
 
 #hits {  
@@ -67,8 +79,6 @@ body {
 .section {
   margin-bottom: 5ex;
   cursor: row-resize;
-  
-  .clear { clear: both; }
   
   h3 { margin-bottom: 1ex; }
   
