@@ -70,7 +70,8 @@
       
       var meta_tab_el = $('<div class="meta-tab"></div>');
       meta_tab_el.appendTo(section_el);
-      $('<span>' + section['number'] + '</span>').appendTo(meta_tab_el);
+      $('<div>' + section['number'] + '</div>').appendTo(meta_tab_el);
+      $('<div><a href="' + section['ref_url'] + '">orig</a></div>').appendTo(meta_tab_el);
       
       var content_el = $('<div class="content"></div>');
       content_el.appendTo(section_el);
