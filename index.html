@@ -8,6 +8,126 @@
   <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js'></script>
   <link rel="stylesheet" type="text/css" href="style.css" />
   
+  <script>
+    var DGCL = data['titles'][0]['chapters'][0];
+    var NUM_SNIPPET_CHARS = 240;
+    
+    function highlight(query, string) {
+      return string.replace(new RegExp('(' + query + ')', 'i'), '<span class="match">$1</span>');
+    }
+    
+    function buildSubchapterTitle(subchapter, query) {
+      return $('<h2>' + subchapter['number'] + '. ' + highlight(query, subchapter['title']) + '</h2>');
+    }
+    
+    function buildSectionElement(subchapter, section, query) {
+      // Return nothing if there weren't any hits in this section.
+      var content = section['content'];
+      content = content.replace(/\n/g, '<br/>');
+      var index = content.toLowerCase().indexOf(query);
+      if (index === -1) return null;
+
+      // Build element for the section (the ultimate return value).
+      var section_el = $('<div class="section"></div>');
+      
+      // Build tab on the side of the content, to hold meta data.
+      var meta_tab_el = $('<div class="meta-tab"></div>');
+      meta_tab_el.appendTo(section_el);
+      $('<h3>' + subchapter['number'] + '. ' + section['number'] + '</h3>').appendTo(meta_tab_el);
+      $('<a href="' + section['ref_url'] + '">source</a>').appendTo(meta_tab_el);
+      
+      // Build content element.
+      var content_el = $('<div class="content"></div>');
+      $('<h3>' + highlight(query, section['title']) + '</h3>').appendTo(content_el);
+      content_el.appendTo(section_el);
+      
+      // Clear the floating divs.
+      $('<div class="clear"></div>').appendTo(section_el);
+      
+      // Fill the section's content element.
+      var lo = index - NUM_SNIPPET_CHARS/2;
+      var hi = index + NUM_SNIPPET_CHARS/2;
+      var before = content.substring(0, lo);
+      var snippet = content.substring(lo, hi);
+      var after = content.substring(hi);
+             
+      var before_html = '<span class="non-snippet">' + highlight(query, before) + '</span>';
+      var after_html = '<span class="non-snippet">' + highlight(query, after) + '</span>';
+      var snippet_html = '<span class="snippet">' + highlight(query, snippet) + '</span>'
+      $('<p>' + before_html + snippet_html + after_html + '</p>').appendTo(content_el);
+      
+      // Make the section expand or contract when clicked.
+      section_el.click(function(event) {
+        var el = $(event.currentTarget);
+        el.find('.non-snippet').fadeToggle('slow');
+      }); 
+      
+      return section_el;
+    }
+    
+    function search(query) {
+      // Prepare to show the new results (hits).
+      $('#hits').empty();
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      
+      var query = query.toLowerCase();
+      
+      // Check each subchapter for a match.
+      var subchapters = DGCL['subchapters'];
+      for (var i = 0; i < subchapters.length; i++) {
+        var subchapter = subchapters[i];
+        var subchapter_title_shown = false;
+        
+        // Check each section for a match.
+        var sections = subchapter['sections'];
+        for (var j = 0; j < sections.length; j++) {
+          var section = sections[j];
+          var content = section['content'];
+          content = content.replace(/\n/g, '<br/>');
+          
+          var index = content.toLowerCase().indexOf(query);
+          if (index === -1) { continue; }
+          
+          // At this point, we know there was a match.
+          
+          // Render the subchapter title, if it hasn't been rendered yet.
+          if (subchapter_title_shown === false) {
+            buildSubchapterTitle(subchapter, query).appendTo('#hits');;
+            subchapter_title_shown = true;
+          }
+          
+          // Render the section.
+          buildSectionElement(subchapter, section, query).appendTo('#hits');
+        }
+      }
+    }
+    
+    $(document).ready(function() {
+      // Run the search function with the given query.
+      $('form#search').submit(function() {
+        var query = $('form#search>input')[0].value;
+        search(query);
+        return false; // This prevents page reload.
+      });
+    
+      // Initially, search for everything (empty string).
+      search('');
+    
+      // Set initial focus on the search box.
+      $('form#search>input')[0].focus();
+    
+      // Make the search box (header) stick to the top, when appropriate.
+      var header_original_offset = $("#header").offset().top;
+      $(window).scroll(function(event) {
+        if ($(window).scrollTop() > header_original_offset) {
+          $("#header").addClass('scrolled');
+        } else {
+          $("#header").removeClass('scrolled');
+        }
+      });
+    });
+  </script>
+  
   <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -25,7 +145,7 @@
 
 <body>  
   <div id='intro'>
-    <p>DGCL.info is a search engine for Delaware General Corporation Law. Use the search box below to find sections containing your query. Click sections to expand and contract them. Direct inquiries to <a href='mailto:dgcl.info@gmail.com'>dgcl.info@gmail.com</a>.
+    <p>DGCL.info is a search engine for Delaware General Corporation Law. Use the search box below to find sections containing your query. Click sections to expand and contract them. Direct inquiries to <a href='mailto:DGCL.info@gmail.com'>DGCL.info@gmail.com</a>.
     </p>
   </div>
   
@@ -39,106 +159,6 @@
   </div>
   
   <div id='hits'></div>
-  
-  <script>
-    var dgcl = data['titles'][0]['chapters'][0];
-    
-    function highlight(query, string) {
-      return string.replace(new RegExp('(' + query + ')', 'i'), '<span class="match">$1</span>');
-    }
-    
-    function buildSectionElement(subchapter, section, query) {
-      var content = section['content'];
-      content = content.replace(/\n/g, '<br/>');
-      var index = content.toLowerCase().indexOf(query);
-      if (index === -1) return null;
-
-        
-      var section_el = $('<div class="section"></div>');
-      
-      var meta_tab_el = $('<div class="meta-tab"></div>');
-      meta_tab_el.appendTo(section_el);
-      $('<h3>' + subchapter['number'] + '. ' + section['number'] + '</h3>').appendTo(meta_tab_el);
-      $('<a href="' + section['ref_url'] + '">source</a>').appendTo(meta_tab_el);
-      
-      var content_el = $('<div class="content"></div>');
-      $('<h3>' + highlight(query, section['title']) + '</h3>').appendTo(content_el);
-      content_el.appendTo(section_el);
-      
-      $('<div class="clear"></div>').appendTo(section_el);
-      
-      var lo = index - 120;
-      var hi = index + 120;
-      var before = content.substring(0, lo);
-      var snippet = content.substring(lo, hi);
-      var after = content.substring(hi);
-              
-      var before_html = '<span class="non-snippet">' + highlight(query, before) + '</span>';
-      var after_html = '<span class="non-snippet">' + highlight(query, after) + '</span>';
-      var snippet_html = '<span class="snippet">' + highlight(query, snippet) + '</span>'
-      $('<p>' + before_html + snippet_html + after_html + '</p>').appendTo(content_el);
-              
-      section_el.click(function(event) {
-        var el = $(event.currentTarget);
-        el.find('.non-snippet').fadeToggle('slow');
-      }); 
-      
-      return section_el;
-    }
-    
-    function search(query) {
-      $('#hits').empty();
-      
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-      
-      var query = query.toLowerCase();
-      
-      var subchapters = dgcl['subchapters'];
-      for (var i = 0; i < subchapters.length; i++) {
-        var subchapter = subchapters[i];
-        
-        var subchapter_title_shown = false;
-        function showSubchapterTitle(subchapter) {
-          $('<h2>' + subchapter['number'] + '. ' + highlight(query, subchapter['title']) + '</h2>').appendTo('#hits');
-        }
-        
-        var sections = subchapter['sections'];
-        for (var j = 0; j < sections.length; j++) {
-          var section = sections[j];
-          var content = section['content'];
-          content = content.replace(/\n/g, '<br/>');
-          var index = content.toLowerCase().indexOf(query);
-          if (index != -1) {
-            if (subchapter_title_shown === false) {
-              showSubchapterTitle(subchapter);
-              subchapter_title_shown = true;
-            }
-            
-            buildSectionElement(subchapter, section, query).appendTo('#hits');
-          }
-        }
-        
-      }
-    }
-    
-    $('form#search').submit(function() {
-      var query = $('form#search>input')[0].value;
-      search(query);
-      return false; // This prevents page reload.
-    });
-    
-    search('');
-    $('form#search>input')[0].focus();
-    
-    var header_original_offset = $("#header").offset().top;
-    $(window).scroll(function(event) {
-      if ($(window).scrollTop() > header_original_offset) {
-        $("#header").addClass('scrolled');
-      } else {
-        $("#header").removeClass('scrolled');
-      }
-    });
-  </script>
 </body>
 
 </html>
