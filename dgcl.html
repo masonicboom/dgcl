@@ -9,7 +9,7 @@
 
 <body>
   <form id='search' action='javascript:return false;'>
-    <input id='search' size=50></input>
+    <input id='query' size=50></input>
     <input type='submit' value='search'></input>
   </form>
   
@@ -34,7 +34,7 @@
       var meta_tab_el = $('<div class="meta-tab"></div>');
       meta_tab_el.appendTo(section_el);
       $('<div class="title">' + subchapter['number'] + '. ' + section['number'] + '</div>').appendTo(meta_tab_el);
-      $('<div><a href="' + section['ref_url'] + '">orig</a></div>').appendTo(meta_tab_el);
+      $('<div><a href="' + section['ref_url'] + '">source</a></div>').appendTo(meta_tab_el);
       
       var content_el = $('<div class="content"></div>');
       $('<div class="title">' + section['title'] + '</div>').appendTo(content_el);
