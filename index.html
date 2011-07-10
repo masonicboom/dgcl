@@ -24,7 +24,7 @@
     var dgcl = data['titles'][0]['chapters'][0];
     
     function highlight(query, string) {
-      return string.replace(query, '<span class="match">' + query + '</span>');
+      return string.replace(new RegExp('(' + query + ')', 'i'), '<span class="match">$1</span>');
     }
     
     function buildSectionElement(subchapter, section, query) {
@@ -42,7 +42,7 @@
       $('<div><a href="' + section['ref_url'] + '">source</a></div>').appendTo(meta_tab_el);
       
       var content_el = $('<div class="content"></div>');
-      $('<div class="title">' + section['title'] + '</div>').appendTo(content_el);
+      $('<div class="title">' + highlight(query, section['title']) + '</div>').appendTo(content_el);
       content_el.appendTo(section_el);
       
       $('<div class="clear"></div>').appendTo(section_el);
