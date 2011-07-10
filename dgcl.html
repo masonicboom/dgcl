@@ -16,6 +16,10 @@
     #hits {
       margin-top: 9ex;
     }
+    
+    .match {
+      background-color: yellow;
+    }
   </style>
 </head>
 
@@ -30,6 +34,10 @@
   <script>
     var dgcl = data['titles'][0]['chapters'][0];
     
+    function highlight(query, string) {
+      return string.replace(query, '<span class="match">' + query + '</span>');
+    }
+    
     function search(query) {
       $('#hits').empty();
       
@@ -42,7 +50,7 @@
         var subchapter = subchapters[i];
         
         if (subchapter['title'].toLowerCase().indexOf(query) != -1) {
-          $('<h2>' + subchapter['number'] + '. ' + subchapter['title'] + '</h2>').appendTo('#hits');
+          $('<h2>' + subchapter['number'] + '. ' + highlight(query, subchapter['title']) + '</h2>').appendTo('#hits');
         }
         
         
@@ -50,13 +58,16 @@
         for (var j = 0; j < sections.length; j++) {
           var section = sections[j];
           if (section['title'].toLowerCase().indexOf(query) != -1) {
-            $('<h3>' + section['number'] + '. ' + section['title'] + '</h3>').appendTo('#hits');
+            $('<h3>' + section['number'] + '. ' + highlight(query, section['title']) + '</h3>').appendTo('#hits');
           }
           
           var content = section['content'];
-          if (content.toLowerCase().indexOf(query) != -1) {
-            var content = content.replace(/\n/g, '<br/>');
-            $('<p>' + content + '</p>').appendTo('#hits');
+          content = content.replace(/\n/g, '<br/>');
+          var index = content.toLowerCase().indexOf(query);
+          if (index != -1) {
+            var snippet = content.substring(index - 50, index + 50);
+            snippet = highlight(query, snippet);
+            $('<p>' + snippet + '...' + '</p>').appendTo('#hits');
           }
         }
         
