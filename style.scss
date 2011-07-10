@@ -1,7 +1,6 @@
 @import "reset";
 
 
-$hc: #6BB6FF;
 $inactive-muted-bg: #F7F6F2;
 $active-muted-bg: #EDECE8;
 $column-width: 35em;
@@ -42,6 +41,13 @@ body {
   }
   
   form { float: left; }
+}
+
+#intro {
+  margin-top: 14ex;
+  font-size: 1.3em;
+  color: $active-fg;
+  max-width: $column-width;
 }
 
 #hits {  

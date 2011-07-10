@@ -83,6 +83,12 @@ body {
   #header form {
     float: left; }
 
+#intro {
+  margin-top: 14ex;
+  font-size: 1.3em;
+  color: black;
+  max-width: 35em; }
+
 #hits .non-snippet {
   display: none; }
 #hits h2 {
