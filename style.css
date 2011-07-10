@@ -69,19 +69,34 @@ a {
 body {
   font-family: 'Forum', serif;
   padding-left: 4em;
-  color: #403f3e; }
+  color: #403f3e;
+  margin-top: 3ex; }
+
+.clear {
+  clear: both; }
 
 #header {
-  position: fixed;
-  top: 2ex;
   background-color: #f7f6f2;
-  padding: 6px;
-  border-radius: 8px; }
+  padding: 2ex 3ex 2ex 3ex;
+  border-radius: 8px;
+  width: 37em; }
   #header h1 {
     float: left;
-    margin-right: 2ex; }
+    margin-right: 1em; }
   #header form {
     float: left; }
+  #header input {
+    padding: 0.3em;
+    font-size: 1em; }
+  #header.scrolled {
+    position: fixed;
+    top: -1ex; }
+
+#intro {
+  font-size: 1.3em;
+  color: black;
+  max-width: 35em;
+  margin-bottom: 3ex; }
 
 #hits .non-snippet {
   display: none; }
@@ -96,8 +111,6 @@ body {
 .section {
   margin-bottom: 5ex;
   cursor: row-resize; }
-  .section .clear {
-    clear: both; }
   .section h3 {
     margin-bottom: 1ex; }
   .section .meta-tab {

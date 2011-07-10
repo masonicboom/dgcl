@@ -1,7 +1,8 @@
 <html>
 
 <head>
-  <title>DGCL</title>
+  <title>DGCL.info - search engine for Delaware General Corporation Law</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <link href='http://fonts.googleapis.com/css?family=Forum&subset=latin&v2' rel='stylesheet' type='text/css'>
   <script src='data.js'></script>
   <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js'></script>
@@ -22,13 +23,18 @@
   </script>
 </head>
 
-<body>
+<body>  
+  <p id='intro'>
+    DGCL.info is a search engine for Delaware General Corporation Law. Use the search box below to find sections containing your query. Click sections to expand and contract them.
+  </p>
+  
   <div id='header'>
     <h1>DGCL</h1>
     <form id='search' action='javascript:return false;'>
       <input id='query' size=50></input>
       <input type='submit' value='search'></input>
     </form>
+    <div class='clear'></div>
   </div>
   
   <div id='hits'></div>
@@ -122,6 +128,15 @@
     
     search('');
     $('form#search>input')[0].focus();
+    
+    var header_original_offset = $("#header").offset().top;
+    $(window).scroll(function(event) {
+      if ($(window).scrollTop() > header_original_offset) {
+        $("#header").addClass('scrolled');
+      } else {
+        $("#header").removeClass('scrolled');
+      }
+    });
   </script>
 </body>
 
