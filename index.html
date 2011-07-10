@@ -23,13 +23,11 @@
 
 <body>
   <div id='header'>
-    <span id='logo'>DGCL</span>
-    <span>
-      <form id='search' action='javascript:return false;'>
-        <input id='query' size=50></input>
-        <input type='submit' value='search'></input>
-      </form>
-    </span>
+    <h1>DGCL</h1>
+    <form id='search' action='javascript:return false;'>
+      <input id='query' size=50></input>
+      <input type='submit' value='search'></input>
+    </form>
   </div>
   
   <div id='hits'></div>
@@ -52,11 +50,11 @@
       
       var meta_tab_el = $('<div class="meta-tab"></div>');
       meta_tab_el.appendTo(section_el);
-      $('<div class="title">' + subchapter['number'] + '. ' + section['number'] + '</div>').appendTo(meta_tab_el);
-      $('<div><a href="' + section['ref_url'] + '">source</a></div>').appendTo(meta_tab_el);
+      $('<h3>' + subchapter['number'] + '. ' + section['number'] + '</h3>').appendTo(meta_tab_el);
+      $('<a href="' + section['ref_url'] + '">source</a>').appendTo(meta_tab_el);
       
       var content_el = $('<div class="content"></div>');
-      $('<div class="title">' + highlight(query, section['title']) + '</div>').appendTo(content_el);
+      $('<h3>' + highlight(query, section['title']) + '</h3>').appendTo(content_el);
       content_el.appendTo(section_el);
       
       $('<div class="clear"></div>').appendTo(section_el);

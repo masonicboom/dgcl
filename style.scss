@@ -1,6 +1,17 @@
+@import "reset";
+
+
 $hc: #6BB6FF;
 $muted-color: #F7F6F4;
 $active-color: #F7E2C1;
+
+
+body { font-size:100%; }
+h1 { font-size:2.25em;  /* 16x2.25=36 */ }
+h2 { font-size:1.5em;   /* 16x1.5=24 */ }
+h3 { font-size:1.125em; /* 16x1.125=18 */ }
+h4 { font-size:0.875em; /* 16x0.875=14 */ }
+p  { font-size:0.75em;  /* 16x0.75=12 */ }
 
 
 #header {
@@ -11,15 +22,12 @@ $active-color: #F7E2C1;
   border-radius: 8px;
   margin-left: 2em;
   
-  span {
+  h1 {
     float: left;
     margin-right: 2ex;
   }
   
-  #logo {
-    font-weight: bold;
-    font-family: verdana;
-  }
+  form { float: left; }
 }
 
 #hits {
