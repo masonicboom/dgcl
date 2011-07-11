@@ -13,7 +13,7 @@
     var NUM_SNIPPET_CHARS = 240;
     
     function highlight(query, string) {
-      return string.replace(new RegExp('(' + query + ')', 'i'), '<span class="match">$1</span>');
+      return string.replace(new RegExp('(' + query + ')', 'ig'), '<span class="match">$1</span>');
     }
     
     function anchorName(subchapter_number, section_number) {
