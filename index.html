@@ -29,7 +29,10 @@
       // Return nothing if there weren't any hits in this section.
       var content = section['content'];
       content = content.replace(/\n/g, '<br/>');
-      var index = content.toLowerCase().indexOf(query);
+      
+      var query_re = new RegExp(query, 'i');
+      
+      var index = content.search(query_re);
       if (index === -1) return null;
 
       // Build element for the section (the ultimate return value).
@@ -53,21 +56,31 @@
       $('<div class="clear"></div>').appendTo(section_el);
       
       // Fill the section's content element.
-      var lo = index - NUM_SNIPPET_CHARS/2;
-      var hi = index + NUM_SNIPPET_CHARS/2;
-      var before = content.substring(0, lo);
-      var snippet = content.substring(lo, hi);
-      var after = content.substring(hi);
-             
-      var before_html = '<span class="non-snippet">' + highlight(query, before) + '</span>';
-      var after_html = '<span class="non-snippet">' + highlight(query, after) + '</span>';
-      var snippet_html = '<span class="snippet">' + highlight(query, snippet) + '</span>'
-      $('<p>' + before_html + snippet_html + after_html + '</p>').appendTo(content_el);
+      function buildContent(text, index) {
+        if (index === -1) return '<div class="ellipsis">...</div><span class="non-snippet">' + text + '</span>';
+        
+        var lo = index - NUM_SNIPPET_CHARS/2;
+        var hi = index + NUM_SNIPPET_CHARS/2;
+        var before = text.substring(0, lo);
+        var snippet = text.substring(lo, hi);
+        var after = text.substring(hi);
+        
+        var before_html = '<span class="non-snippet">' + highlight(query, before) + '</span><div class="ellipsis">...</div>';
+        var snippet_html = '<span class="snippet">' + highlight(query, snippet) + '</span>';
+        
+        if (query === '') {
+          return snippet_html + buildContent(after, -1);
+        }
+        
+        return before_html + snippet_html + buildContent(after, after.search(query_re));
+      }
+      $(buildContent(content, index)).appendTo(content_el);
       
       // Make the section expand or contract when clicked.
       section_el.click(function(event) {
         var el = $(event.currentTarget);
         el.find('.non-snippet').fadeToggle('slow');
+        el.find('.ellipsis').fadeToggle('fast');
       }); 
       
       return anchor_el;
@@ -78,7 +91,7 @@
       $('#hits').empty();
       $("html, body").animate({ scrollTop: 0 }, "slow");
       
-      var query = query.toLowerCase();
+      var query_re = new RegExp(query, 'i');
       
       // Check each subchapter for a match.
       var subchapters = DGCL['subchapters'];
@@ -93,7 +106,7 @@
           var content = section['content'];
           content = content.replace(/\n/g, '<br/>');
           
-          var index = content.toLowerCase().indexOf(query);
+          var index = content.search(query_re);
           if (index === -1) { continue; }
           
           // At this point, we know there was a match.
