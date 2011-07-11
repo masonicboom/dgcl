@@ -1,3 +1,5 @@
+# Copyright Mason Simon 2011
+
 require 'open-uri'
 require 'nokogiri'
 require 'uri'
