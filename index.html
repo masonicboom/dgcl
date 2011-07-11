@@ -16,6 +16,10 @@
       return string.replace(new RegExp('(' + query + ')', 'i'), '<span class="match">$1</span>');
     }
     
+    function anchorName(subchapter_number, section_number) {
+      return subchapter_number + "." + section_number;
+    }
+    
     function buildSubchapterTitle(subchapter, query) {
       return $('<h2>' + subchapter['number'] + '. ' + highlight(query, subchapter['title']) + '</h2>');
     }
@@ -28,7 +32,10 @@
       if (index === -1) return null;
 
       // Build element for the section (the ultimate return value).
+      var an = anchorName(subchapter['number'], section['number']);
+      var anchor_el = $('<a name="' + an + '"></a>');
       var section_el = $('<div class="section"></div>');
+      section_el.appendTo(anchor_el);
       
       // Build tab on the side of the content, to hold meta data.
       var meta_tab_el = $('<div class="meta-tab"></div>');
@@ -62,7 +69,7 @@
         el.find('.non-snippet').fadeToggle('slow');
       }); 
       
-      return section_el;
+      return anchor_el;
     }
     
     function search(query) {
