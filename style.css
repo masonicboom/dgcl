@@ -75,6 +75,10 @@ body {
 .clear {
   clear: both; }
 
+.de-emph {
+  font-size: 0.8em;
+  color: #403f3e; }
+
 #header {
   background-color: #f7f6f2;
   padding: 2ex 3ex 2ex 3ex;
@@ -97,6 +101,8 @@ body {
   color: black;
   max-width: 35em;
   margin-bottom: 3ex; }
+  #intro p {
+    margin-bottom: 2ex; }
 
 #hits .non-snippet {
   display: none; }
