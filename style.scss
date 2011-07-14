@@ -12,7 +12,7 @@ body { font-size:100%; }
 h1 { font-size:2.25em; }
 h2 { font-size:1.75em; }
 h3 { font-size:1.3em; }
-p { font-size:1.0em; line-height: 1.45; }
+p { font-size:1.0em; }
 
 a {
   color: $inactive-fg;
@@ -27,6 +27,7 @@ body {
   padding-left: 4em;
   color: $inactive-fg;
   margin-top: 3ex;
+  line-height: 1.45;
 }
 
 .clear { clear: both; }
@@ -34,6 +35,12 @@ body {
 .de-emph {
   font-size: 0.8em;
   color: $inactive-fg;
+}
+
+#tos {
+  font-size: 0.7em;
+  
+  ol { list-style-type: upper-roman; }
 }
 
 #header {

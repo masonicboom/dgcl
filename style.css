@@ -58,8 +58,7 @@ h3 {
   font-size: 1.3em; }
 
 p {
-  font-size: 1.0em;
-  line-height: 1.45; }
+  font-size: 1.0em; }
 
 a {
   color: #403f3e; }
@@ -70,7 +69,8 @@ body {
   font-family: 'Forum', serif;
   padding-left: 4em;
   color: #403f3e;
-  margin-top: 3ex; }
+  margin-top: 3ex;
+  line-height: 1.45; }
 
 .clear {
   clear: both; }
@@ -78,6 +78,11 @@ body {
 .de-emph {
   font-size: 0.8em;
   color: #403f3e; }
+
+#tos {
+  font-size: 0.7em; }
+  #tos ol {
+    list-style-type: upper-roman; }
 
 #header {
   background-color: #f7f6f2;
