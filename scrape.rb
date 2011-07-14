@@ -70,7 +70,7 @@ def sections(chapter_number, subchapter)
   
   doc = Nokogiri::HTML(html)
   doc.xpath('//p[@class="section-label"]').map do |element|
-    m = element.content.match(/. (.+)\. (.+)$/)
+    m = element.content.match(/. (.+)\. (.+)$/m)
     number, title = m[1], m[2]
     url = "#{subchapter[:ref_url]}##{number}"
     
