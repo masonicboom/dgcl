@@ -1,3 +1,4 @@
 chapter*.html
 subchapter*.html
 .sass-cache
+data.js
